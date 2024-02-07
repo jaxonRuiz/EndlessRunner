@@ -18,12 +18,12 @@ class Menu extends Phaser.Scene {
         this.add.text(game.config.width/2, game.config.height*0.4, "Escape from FlashAnim", menuConfig).setOrigin(0.5, 0.5);
         menuConfig.fontSize = 34;
         this.add.text(game.config.width/2, game.config.height*0.75, "Enter to begin", menuConfig).setOrigin(0.5, 0.5);
-        this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
-            this.scene.start("gameoverScene");
+        if (Phaser.Input.Keyboard.JustDown(keyEnter)) {
+            this.scene.start("playScene");
         }        
     }
 }
