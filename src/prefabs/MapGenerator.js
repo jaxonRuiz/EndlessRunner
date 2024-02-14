@@ -12,7 +12,9 @@ class MapGenerator {
     }
 
     update() {
-        
+        if (this.deadObsticals.size > 0) {
+            this.RecycleObstical();
+        }
     }
 
     // i know its spelt wrong
@@ -34,23 +36,28 @@ class MapGenerator {
 
     // resets obsticals that hit end to recycle them
     RecycleObstical() {
-        _obsticals = this.deadObsticals.values();
-        if (_obsticals.length > 0) {
-            // resetting obstical
-            console.log("recyled obstical");
-            let randY = Math.random()*this.minHeight;
-            let randSpeed = Math.random() * (this.maxSpeed-this.minSpeed) + this.minSpeed;
-            let obstical = _obsticals[0];
-            obstical.reset(randY, randSpeed);
-            this.deadObsticals.delete(this);
-            this.liveObsticals.add(this);
-        }
+        // getting obstical from set (maybe shuffle later?)
+        let _obsticals = this.deadObsticals.values();
+        let obstical = _obsticals.next().value;
+
+        // resetting obstical 
+        // TODO FIX, obstical not being correctly reset...
+        console.log("recyled obstical");
+        let randY = Math.random()*this.minHeight;
+        let randSpeed = Math.random() * (this.maxSpeed-this.minSpeed) + this.minSpeed;
+        obstical.x = game.width + obstical.width/2;
+        obstical.reset(randY, randSpeed);
+        this.deadObsticals.delete(obstical);
+        this.liveObsticals.add(obstical);
+        
 
     }
 
     // call when obstical hits the end of screen
     hitEnd(_obstical) {
+        console.log("deads: " + this.deadObsticals.size + ", lives: " + this.liveObsticals.size);
         this.deadObsticals.add(_obstical);
-        this.liveObsticals.add(_obstical);
+        this.liveObsticals.delete(_obstical);
+        console.log("deads: " + this.deadObsticals.size + ", lives: " + this.liveObsticals.size);
     }
 }

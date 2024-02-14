@@ -33,7 +33,7 @@ class Play extends Phaser.Scene {
 
 
         this.physics.add.collider(this.player, this.floor.body);
-        this.physics.add.collider(this.player, this.gen.allHazards, () => PlayerHit);
+        this.physics.add.collider(this.player, this.gen.allHazards, () => this.PlayerHit());
         
 
 
@@ -55,7 +55,8 @@ class Play extends Phaser.Scene {
         }
 
         this.player.update();
-        this.gen.allHazards.getChildren().forEach((obstical) => obstical.update());
+        this.gen.allHazards.getChildren().forEach((obstical) => obstical.update()); // wasnt working immediately when i put in MapGenerator update()...
+        this.gen.update();
     }
 
     PlayerHit() {

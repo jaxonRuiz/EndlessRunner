@@ -6,9 +6,12 @@ class Obstical extends Phaser.GameObjects.Sprite {
         scene.physics.add.existing(this);
         scene.add.existing(this);
         this.body.setVelocityX(-speed);
+        this.body.immovable = true;
     }
     update() {
-        this.checkReset();
+        if (this.generator.liveObsticals.has(this)){
+            this.checkReset();
+        }
     }
 
     // tying individual object to generator holder
@@ -24,24 +27,24 @@ class Obstical extends Phaser.GameObjects.Sprite {
 
     // check if object needs to reset, and does so if needed
     checkReset() {
-        if (this.x  + this.width/2 < 0) {
-            console.log("object hit end, adding to deadObsticals");
+        if (this.x - this.width/2 < 0) {
             this.body.setVelocityX(0);
+            this.x = game.config.width + this.width/2;
             this.generator.hitEnd(this);
         } else {
             this.body.setVelocityX(-this.speed);
-
         }
     }
 
     // resets obstical when recycling
     reset(randy, randspeed) {
+        console.log("reset() in obstical")
+        this.body.immovable = true;
         this.y = randy;
+        this.x = game.config.width + this.width/2;
         this.body.setVelocityX(-randspeed);
     }
-    flag() {
-        console.log("I EXIST!!");
-    }
+    
     
 
 }
