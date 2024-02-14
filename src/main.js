@@ -1,4 +1,4 @@
-// Game title: Escape from FlashAnim
+// Game title: Surviving
 // Author: jaxon ruiz
 // ~8 hours worked
 // (still using semicolons because of C trauma)
@@ -20,4 +20,5 @@ let config = {
     scene: [Menu, Play, GameOver]
 }
 let game = new Phaser.Game(config);
-let keyEnter, keyRoll, keyRestart, keyJump, keyUp, keyDown;
+let keyEnter, keyRoll, keyRestart, keyJump, keyUp, keyDown, keyLeft, keyRight;
+// kept having too many ideas, several unnecessary keys here

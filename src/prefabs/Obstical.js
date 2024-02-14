@@ -3,10 +3,11 @@ class Obstical extends Phaser.GameObjects.Sprite {
         super(scene, game.config.width, y, texture, 0);
         
         this.speed = speed;
-        scene.physics.add.existing(this);
+        scene.physics.add.existing(this); // maybe might want circular hitboxes
         scene.add.existing(this);
         this.body.setVelocityX(-speed);
-        this.body.immovable = true;
+        this.body.setCircle(this.width/2);
+        //this.body.immovable = true;
     }
     update() {
         if (this.generator.liveObsticals.has(this)){
@@ -42,6 +43,7 @@ class Obstical extends Phaser.GameObjects.Sprite {
         this.body.immovable = true;
         this.y = randy;
         this.x = game.config.width + this.width/2;
+        this.body.setVelocityY(0);
         this.body.setVelocityX(-randspeed);
     }
     

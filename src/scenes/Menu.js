@@ -16,11 +16,11 @@ class Menu extends Phaser.Scene {
             backgroundColor: "#AB8888",
             align: "center"
         }
-        this.add.text(game.config.width/2, game.config.height*0.4, "Escape from FlashAnim", menuConfig).setOrigin(0.5, 0.5);
+        this.add.text(game.config.width/2, game.config.height*0.4, "Surviving FlashAnim", menuConfig).setOrigin(0.5, 0.5);
         menuConfig.fontSize = 34;
         this.add.text(game.config.width/2, game.config.height*0.75, "Enter to begin", menuConfig).setOrigin(0.5, 0.5);
         menuConfig.fontSize = 28;
-        this.add.text(game.config.width/2, game.config.height*0.85, "Enter to begin", menuConfig).setOrigin(0.5, 0.5);
+        this.add.text(game.config.width/2, game.config.height*0.85, "Space to fly | A/D to move", menuConfig).setOrigin(0.5, 0.5);
 
         keyEnter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
