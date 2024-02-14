@@ -19,6 +19,8 @@ class Play extends Phaser.Scene {
     init() {
     }
 
+    
+
     create() {
         this.player = new Player(this, game.config.width/2, game.config.height/2, "player", 0);
         this.player.body.setGravityY(1000);
@@ -26,12 +28,15 @@ class Play extends Phaser.Scene {
         this.physics.add.existing(this.floor, true);
         this.player.body.setCollideWorldBounds(true);
 
-        this.obsticals = new Group(this, [])
-        this.physics.add.collider(this.player, this.floor.body);
-        this.physics.add.collider(this.player, )
+        this.gen = new MapGenerator(this)
+        this.gen.SpawnObstical();
 
-        this.mg = new MapGenerator()
-        this.mg.SpawnObstical(this);
+
+        this.physics.add.collider(this.player, this.floor.body);
+        this.physics.add.collider(this.player, this.gen.allHazards, () => PlayerHit);
+        
+
+
 
 
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
@@ -46,9 +51,15 @@ class Play extends Phaser.Scene {
             this.scene.start('menuScene');
         }
         if (Phaser.Input.Keyboard.JustDown(keyRoll)) {
-            this.mg.SpawnObstical(this);
+            this.gen.SpawnObstical(this);
         }
+
         this.player.update();
+        this.gen.allHazards.getChildren().forEach((obstical) => obstical.update());
+    }
+
+    PlayerHit() {
+        console.log("player hit!");
     }
 
 }

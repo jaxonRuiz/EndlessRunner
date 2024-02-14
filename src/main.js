@@ -2,6 +2,10 @@
 // Author: jaxon ruiz
 // ~8 hours worked
 // (still using semicolons because of C trauma)
+// I did not sufficiently preplan the runner, and changed my mind FAR too much.
+// by the end my code is a mess of various attempted ideas, many of which are 
+// suboptimal or incomplete.
+// i feel like i have (er) "creative" coding solutions to some things. to say the least...
 
 let config = {
     type: Phaser.AUTO,
