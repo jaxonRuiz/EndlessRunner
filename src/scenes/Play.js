@@ -26,7 +26,9 @@ class Play extends Phaser.Scene {
         this.physics.add.existing(this.floor, true);
         this.player.body.setCollideWorldBounds(true);
 
+        this.obsticals = new Group(this, [])
         this.physics.add.collider(this.player, this.floor.body);
+        this.physics.add.collider(this.player, )
 
         this.mg = new MapGenerator()
         this.mg.SpawnObstical(this);

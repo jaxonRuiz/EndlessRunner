@@ -1,5 +1,7 @@
-// hi there!
-// still using semicolons because im still in C classes :(
+// Game title: Escape from FlashAnim
+// Author: jaxon ruiz
+// ~8 hours worked
+// (still using semicolons because of C trauma)
 
 let config = {
     type: Phaser.AUTO,

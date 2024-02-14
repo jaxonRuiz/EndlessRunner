@@ -1,14 +1,16 @@
 class MapGenerator {
     constructor() {
         this.obsticalTypes = ["placeholder", "placeholder2"];
-        this.numObsticals = 1; // im tired
+        this.spawnRate = 1;
         this.liveObsticals = [];
-        this.level = 1;
         this.minHeight = game.config.height * 2/3;
         this.maxSpeed = 300;
         this.minSpeed = 150;
+        this.obsticalsGroup = new Group();
     }
+    GeneratorUpdate(scene) {
 
+    }
 
     // i know its spelt wrong
     SpawnObstical(scene) {
@@ -21,5 +23,13 @@ class MapGenerator {
         scene.add.existing(obstical);
 
         this.liveObsticals.push(obstical);
+    }
+
+    ClearDeadObsticals() {
+        if (Obstical.isGone(this.liveObsticals[0])) {
+            console.log("destroyed obstical");
+            this.liveObsticals[0].destroy();
+            this.liveObsticals.shift();
+        }
     }
 }

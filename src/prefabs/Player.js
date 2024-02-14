@@ -7,6 +7,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.maxEnergy = 58;
         this.jumpEnergy = this.maxEnergy;
         this.notJumped = false;
+        this.health = 3;
     }
 
     create() {
@@ -53,7 +54,10 @@ class Player extends Phaser.GameObjects.Sprite {
         //     console.log("debug button :D");
         // } 
     }
-
+    getHit() {
+        this.health--; 
+        // try flashing character red when hit?
+    }
 }
 
 // states list: 
