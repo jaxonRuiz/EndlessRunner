@@ -6,8 +6,8 @@ class MapGenerator {
         this.liveObsticals = new Set();
         this.deadObsticals = new Set();
         this.minHeight = game.config.height * 5/6;
-        this.maxSpeed = 300;
-        this.minSpeed = 150;
+        this.maxSpeed = 500;
+        this.minSpeed = 250;
         this.allHazards = this.scene.physics.add.group(); // originally i was intending to have a greater variety of obsticals, but i dont have time :(
     }
 

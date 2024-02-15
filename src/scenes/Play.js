@@ -104,6 +104,15 @@ class Play extends Phaser.Scene {
         this.player.body.setCollideWorldBounds(true);
         this.player.body.setDamping(true).setDrag(0.4);
 
+        // player run animation
+        // this.anims.create({
+        //     key: `runanim`,
+        //     repeat: -1,
+        //     frames: this.anims.generateFrameNumbers(player, {start: 0, end: 7}), // normal use of spritesheet
+        //     frameRate: 12,
+        // })
+
+
         // add death wall 
         this.deathwall = this.add.tileSprite(0, 0, game.config.width/15, game.config.height * 1.1, 'deathwall').setOrigin(0,0);
         this.physics.add.existing(this.deathwall, true);
@@ -111,6 +120,7 @@ class Play extends Phaser.Scene {
         // add floor
         this.floor = this.add.tileSprite(game.config.width/2, game.config.height*5/6, game.config.width * 1.1, game.config.height/6).setOrigin(0.5, 0);
         this.physics.add.existing(this.floor, true);
+        console.log("floor size: " + this.floor.width + ", " + this.floor.height);
         
 
 
@@ -123,7 +133,7 @@ class Play extends Phaser.Scene {
             delay: 2000, // time in ms
             loop: true,
             callback: () => {
-                if (this.numObsticals < 40) { // hack balancing :/
+                if (this.numObsticals < 50) { // hack balancing :/
                     this.numObsticals++;
                     this.gen.SpawnObstical();
                 }

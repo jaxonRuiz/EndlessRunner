@@ -13,6 +13,9 @@ class Menu extends Phaser.Scene {
         this.load.image("frontTrees", "./assets/imgs/treesB.PNG");
         this.load.image("backGround", "./assets/imgs/ground2.PNG");
         this.load.image("backBackGround", "./assets/imgs/ground3.PNG");
+        this.load.image("deathwall", "./assets/imgs/deathwall.png");
+
+        this.load.spritesheet("runanim", "./assets/imgs/runanim.png", {frameWidth: 48, frameHeight: 64});
 
         // load audio
         this.load.audio("bg_music", "./assets/sounds/bossTime.mp3");
