@@ -4,14 +4,14 @@ class Play extends Phaser.Scene {
     }
 
     preload() {
-        this.load.spritesheet("player", "./assets/art/player.png", {
-            frameWidth: 64,
-            frameHeight: 32,
-            startFrame: 0,
-            endFrame: 9
-        });
-        this.load.image("floor", "./assets/art/floor.png");
-        this.load.image("placeholder", "./assets/art/asdf.png");
+        // this.load.spritesheet("player", "./assets/art/player.png", {
+        //     frameWidth: 64,
+        //     frameHeight: 32,
+        //     startFrame: 0,
+        //     endFrame: 9
+        // });
+        // this.load.image("floor", "./assets/art/floor.png");
+        // this.load.image("placeholder", "./assets/art/asdf.png");
         
 
     }
@@ -105,12 +105,13 @@ class Play extends Phaser.Scene {
         this.player.body.setDamping(true).setDrag(0.4);
 
         // player run animation
-        // this.anims.create({
-        //     key: `runanim`,
-        //     repeat: -1,
-        //     frames: this.anims.generateFrameNumbers(player, {start: 0, end: 7}), // normal use of spritesheet
-        //     frameRate: 12,
-        // })
+        this.anims.create({
+            key: `run`,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers("runanim", {start: 0, end: 6}), 
+            frameRate: 12,
+        })
+        this.player.anims.play(`run`);
 
 
         // add death wall 

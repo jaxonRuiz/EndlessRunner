@@ -19,7 +19,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.justLanded = false;
         console.log("Player size: " + this.width + ", " + this.height)
 
-        this.anims.play("runanim");
+        
     }
 
     update() {

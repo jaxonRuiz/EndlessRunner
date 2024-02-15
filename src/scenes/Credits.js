@@ -17,8 +17,10 @@ class Credits extends Phaser.Scene {
 Programming: Jaxon Ruiz
 Art: Jaxon Ruiz
 Animation: Jaxon Ruiz
-Music: 
-SFX: `
+SFX: freesounds.org
+Music: David Fesliyan
+`//https://www.fesliyanstudios.com/royalty-free-music/downloads-c/8-bit-music/6
+
         this.add.text(game.config.width/2, game.config.height*0.45, text, creditsConfig).setOrigin(0.5, 0.5);
         creditsConfig.fontSize = 28;
         this.add.text(game.config.width/2, game.config.height*0.85, "Enter to return to menu", creditsConfig).setOrigin(0.5, 0.5);

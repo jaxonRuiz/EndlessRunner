@@ -1,7 +1,7 @@
 class MapGenerator {
     constructor(scene) {
         this.scene = scene
-        this.obsticalTypes = ["placeholder", "placeholder2"];
+        this.obsticalTypes = ["sadObstical"];
         this.spawnRate = 1;
         this.liveObsticals = new Set();
         this.deadObsticals = new Set();
@@ -21,9 +21,10 @@ class MapGenerator {
     SpawnObstical() { // change to addObstical()?
         // maybe put a distribution curve or something fancy 
         let randY = Math.random()*this.minHeight;
-        //let randTexture = this.obsticalTypes[Math.floor(Math.random() * this.numObsticals)]
+        let randTexture = this.obsticalTypes[Math.floor(Math.random() * this.obsticalTypes.length)]
+        console.log(randTexture)
         let randSpeed = Math.random() * (this.maxSpeed-this.minSpeed) + this.minSpeed;
-        let obstical = new Obstical(this.scene, randY, "randTexture", randSpeed);
+        let obstical = new Obstical(this.scene, randY, randTexture, randSpeed);
         obstical.setGenerator(this);
         this.scene.add.existing(obstical);
         this.allHazards.add(obstical); // adding to physics group
@@ -48,8 +49,6 @@ class MapGenerator {
         obstical.reset(randY, randSpeed);
         this.deadObsticals.delete(obstical);
         this.liveObsticals.add(obstical);
-        
-
     }
 
     // call when obstical hits the end of screen
