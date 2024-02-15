@@ -4,8 +4,17 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        // load sprites
-        // this.load.image('player', './assets/art/player.png');
+        // load background images
+        this.load.image("backClouds", "./assets/imgs/clouds1.PNG");
+        this.load.image("frontClouds", "./assets/imgs/clouds2.PNG");
+        this.load.image("groundImg", "./assets/imgs/ground.PNG");
+        this.load.image("sky", "./assets/imgs/sky.PNG");
+        this.load.image("backTrees", "./assets/imgs/treesA.PNG");
+        this.load.image("frontTrees", "./assets/imgs/treesB.PNG");
+        this.load.image("backGround", "./assets/imgs/ground2.PNG");
+        this.load.image("backBackGround", "./assets/imgs/ground3.PNG");
+
+        // load audio
         this.load.audio("bg_music", "./assets/sounds/bossTime.mp3");
         this.load.audio("beepImpact", "./assets/sounds/beepImpact.wav");
         this.load.audio("cartoonJump", "./assets/sounds/cartoonJump.wav");

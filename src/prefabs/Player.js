@@ -4,7 +4,7 @@ class Player extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.groundLevel = game.config.height*6/7;
-        this.maxEnergy = 78;
+        this.maxEnergy = 100;
         this.jumpEnergy = this.maxEnergy;
         this.notJumped = false;
         this.health = 3;
@@ -17,11 +17,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.jump.setVolume(0.5);
         this.nowRunning = false;
         this.justLanded = false;
-    }
-
-    create() {
-
-        
+        console.log("Player size: " + this.width + ", " + this.height)
     }
 
     update() {

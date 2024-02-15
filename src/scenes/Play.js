@@ -41,6 +41,63 @@ class Play extends Phaser.Scene {
         this.jump = this.sound.add("jump");
 
 
+        // add background
+        this.sky = this.add.tileSprite(0,
+            0,
+            game.config.width,
+            game.config.height,
+            'sky'
+        ).setOrigin(0, 0);
+
+        this.backClouds = this.add.tileSprite(0,
+            0,
+            game.config.width,
+            game.config.height,
+            'backClouds'
+        ).setOrigin(0, 0);
+
+        this.frontClouds = this.add.tileSprite(0,
+            0,
+            game.config.width,
+            game.config.height,
+            'frontClouds'
+        ).setOrigin(0, 0);
+
+        this.backBackGround = this.add.tileSprite(0,
+            0,
+            game.config.width,
+            game.config.height,
+            'backBackGround'
+        ).setOrigin(0, 0);
+
+        this.backGround = this.add.tileSprite(0,
+            0,
+            game.config.width,
+            game.config.height,
+            'backGround'
+        ).setOrigin(0, 0);
+
+        this.backTrees = this.add.tileSprite(0,
+            0,
+            game.config.width,
+            game.config.height,
+            'backTrees'
+        ).setOrigin(0, 0);
+
+        this.frontTrees = this.add.tileSprite(0,
+            0,
+            game.config.width,
+            game.config.height,
+            'frontTrees'
+        ).setOrigin(0, 0);
+
+        this.ground = this.add.tileSprite(0,
+            0,
+            game.config.width,
+            game.config.height,
+            'groundImg'
+        ).setOrigin(0, 0);
+
         // add player
         this.player = new Player(this, game.config.width/2, game.config.height/2, "player", 0);
         this.player.body.setGravityY(1000);
@@ -52,7 +109,7 @@ class Play extends Phaser.Scene {
         this.physics.add.existing(this.deathwall, true);
 
         // add floor
-        this.floor = this.add.tileSprite(game.config.width/2, game.config.height*6/7, game.config.width * 1.1, game.config.height/4, 'floor');
+        this.floor = this.add.tileSprite(game.config.width/2, game.config.height*5/6, game.config.width * 1.1, game.config.height/6).setOrigin(0.5, 0);
         this.physics.add.existing(this.floor, true);
         
 
@@ -111,6 +168,16 @@ class Play extends Phaser.Scene {
         // if (Phaser.Input.Keyboard.JustDown(keyRestart)) {
         //     this.scene.start('gameoverScene');
         // }
+
+        this.ground.tilePositionX += 5;
+        this.backGround.tilePositionX += 2;
+        this.backBackGround.tilePositionX += 1;
+        this.backClouds.tilePositionX += 1.5;
+        this.frontClouds.tilePositionX += 2;
+        this.backTrees.tilePositionX += 3.5;
+        this.frontTrees.tilePositionX += 4.5;
+
+
 
         this.player.update();
         this.gen.allHazards.getChildren().forEach((obstical) => obstical.update()); // wasnt working immediately when i put in MapGenerator update()...
