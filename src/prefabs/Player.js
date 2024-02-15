@@ -4,16 +4,24 @@ class Player extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.groundLevel = game.config.height*6/7;
-        this.maxEnergy = 68;
+        this.maxEnergy = 78;
         this.jumpEnergy = this.maxEnergy;
         this.notJumped = false;
         this.health = 3;
         this.runningSpeed = 6;
+
+        this.land = scene.sound.add("landing");
+        this.land.setVolume(5);
+        this.running = scene.sound.add("running");
+        this.jump = scene.sound.add("jump");
+        this.jump.setVolume(0.5);
+        this.nowRunning = false;
+        this.justLanded = false;
     }
 
     create() {
 
-
+        
     }
 
     update() {
@@ -21,48 +29,52 @@ class Player extends Phaser.GameObjects.Sprite {
     }
 
     movementUpdate() {
-        
-        // maybe add in limited movement in the air in exchange for more projectiles or something
-        /*if (keyDown.isDown && !this.body.onFloor()) {
-            this.y += 5;
-            if (this.y > this.groundLevel - 3) {
-                this.y = this.groundLevel;
-                this.body.setVelocityY(0);
-            }
-        }*/
-
-        // use UP to boost midair
-        // if (keyUp.isDown && !this.body.onFloor()) {
-        //     //this.y -= 5;
-        //     this.body.setVelocityY(this.body.velocity.y - 10);
-        //     //console.log(this.body.velocity.y)
-        // }
-
-        // variable jumping height depending on button press
-        if (!this.hitTop && keyJump.isDown && this.jumpEnergy > 0 && this.notJumped) {
-            
-            this.body.setVelocityY(this.body.velocity.y - this.jumpEnergy);
+        if (!this.hitTop && keyJump.isDown && this.jumpEnergy > 0) {
+            //this.notJumped = false;
+            this.body.setVelocityY(this.body.velocity.y - 20);
             // SOUND fwoosh (maybe)
             //this.y -= 10;
-            this.jumpEnergy = this.jumpEnergy*0.95;
+            this.jumpEnergy = this.jumpEnergy - 2;
         }
+        if (!this.hitTop && keyJump.isDown && this.jumpEnergy > 0 && this.notJumped) {
+            this.notJumped = false;
+            this.body.setVelocityY(this.body.velocity.y - 70);
+            // SOUND fwoosh (maybe)
+            //this.y -= 10;
+            this.jumpEnergy = this.jumpEnergy - 1;
+        }
+
         if (this.body.onFloor()) {
             // SOUND impact
+            if (!this.notJumped) {
+                this.land.play();
+            }
             this.jumpEnergy = this.maxEnergy;
             this.notJumped = true;
         }
         if (keyLeft.isDown) {
-            this.x -= this.runningSpeed/2;
+            this.body.setVelocityX(this.body.velocity.x - this.runningSpeed/2)
+            //this.x -= this.runningSpeed/2;
+            if (!this.nowRunning) {
+                //this.running.play();
+                this.nowRunning = true;
+            }
         }
         if (keyRight.isDown) {
             // scale right movement so that player cant get past 2/3 of the screen
             let scaler = (game.config.width*2/3 - this.x) / game.config.width*2/3;
-            this.x += this.runningSpeed * scaler;
+            this.body.setVelocityX(this.body.velocity.x + (this.runningSpeed*scaler))
+            if (!this.nowRunning) {
+                this.running.play();
+                this.nowRunning = true;
+            }
+            //this.x += this.runningSpeed * scaler;
         }
-        // if (Phaser.Input.Keyboard.JustDown(keyRoll) && this.body.onFloor()) {
-        //     this.y = this.groundLevel;
-        //     console.log("debug button :D");
-        // } 
+        if (keyRight.isUp && keyLeft.isUp) {
+            this.nowRunning = false;
+            this.running.stop();
+        }
+
     }
     getHit() {
         this.health--; 

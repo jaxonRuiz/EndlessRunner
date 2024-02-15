@@ -6,6 +6,7 @@
 // by the end my code is a mess of various attempted ideas, many of which are 
 // suboptimal or incomplete.
 // i feel like i have (er) "creative" coding solutions to some things. to say the least...
+// also im working on this on two different setups, and framerates are heavily affecting gameplay feel...
 
 let config = {
     type: Phaser.AUTO,
@@ -17,8 +18,8 @@ let config = {
             debug: true
         }
     },
-    scene: [Menu, Play, GameOver]
+    scene: [Menu, Play, GameOver, Credits]
 }
 let game = new Phaser.Game(config);
-let keyEnter, keyRoll, keyRestart, keyJump, keyUp, keyDown, keyLeft, keyRight;
+let keyEnter, keyCredits, keyRestart, keyJump, keyUp, keyDown, keyLeft, keyRight;
 // kept having too many ideas, several unnecessary keys here

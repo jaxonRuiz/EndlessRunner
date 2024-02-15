@@ -42,7 +42,6 @@ class MapGenerator {
 
         // resetting obstical 
         // TODO FIX, obstical not being correctly reset...
-        console.log("recyled obstical");
         let randY = Math.random()*this.minHeight;
         let randSpeed = Math.random() * (this.maxSpeed-this.minSpeed) + this.minSpeed;
         obstical.x = game.width + obstical.width/2;
@@ -55,9 +54,9 @@ class MapGenerator {
 
     // call when obstical hits the end of screen
     hitEnd(_obstical) {
-        console.log("deads: " + this.deadObsticals.size + ", lives: " + this.liveObsticals.size);
+        //console.log("deads: " + this.deadObsticals.size + ", lives: " + this.liveObsticals.size);
         this.deadObsticals.add(_obstical);
         this.liveObsticals.delete(_obstical);
-        console.log("deads: " + this.deadObsticals.size + ", lives: " + this.liveObsticals.size);
+        //console.log("deads: " + this.deadObsticals.size + ", lives: " + this.liveObsticals.size);
     }
 }

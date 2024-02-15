@@ -7,6 +7,7 @@ class Obstical extends Phaser.GameObjects.Sprite {
         scene.add.existing(this);
         this.body.setVelocityX(-speed);
         this.body.setCircle(this.width/2);
+        this.body.mass = 0.7;
         //this.body.immovable = true;
     }
     update() {
@@ -39,9 +40,9 @@ class Obstical extends Phaser.GameObjects.Sprite {
 
     // resets obstical when recycling
     reset(randy, randspeed) {
-        console.log("reset() in obstical")
-        this.body.immovable = true;
+        //this.body.immovable = true;
         this.y = randy;
+        this.body.mass = 0.7;
         this.x = game.config.width + this.width/2;
         this.body.setVelocityY(0);
         this.body.setVelocityX(-randspeed);

@@ -22,30 +22,54 @@ class Play extends Phaser.Scene {
     
 
     create() {
+        // add sounds/music
+        this.music = this.sound.add("bg_music");
+        this.music.setLoop(true);
+        this.music.setVolume(0.4);
+        this.wind = this.sound.add("windAmbience");
+        this.wind.setLoop(true);
+        this.wind.setVolume(0.9);
+        this.wind.setRate(1.7);
+        this.impact = this.sound.add("beepImpact");
+        this.impact.setVolume(0.3);
+
+        this.music.play();
+        this.wind.play();
+
+        this.land = this.sound.add("landing");
+        this.running = this.sound.add("running");
+        this.jump = this.sound.add("jump");
+
+
         // add player
         this.player = new Player(this, game.config.width/2, game.config.height/2, "player", 0);
         this.player.body.setGravityY(1000);
         this.player.body.setCollideWorldBounds(true);
-        this.player.body.setDamping(true).setDrag(0.5);
+        this.player.body.setDamping(true).setDrag(0.4);
+
+        // add death wall 
+        this.deathwall = this.add.tileSprite(0, 0, game.config.width/15, game.config.height * 1.1, 'deathwall').setOrigin(0,0);
+        this.physics.add.existing(this.deathwall, true);
 
         // add floor
         this.floor = this.add.tileSprite(game.config.width/2, game.config.height*6/7, game.config.width * 1.1, game.config.height/4, 'floor');
         this.physics.add.existing(this.floor, true);
         
-        // add death wall 
-        this.deathwall = this.add.tileSprite(0, 0, game.config.width/15, game.config.height * 1.1, 'deathwall').setOrigin(0,0);
-        this.physics.add.existing(this.deathwall, true);
+
 
         // adding obstical generator
         this.gen = new MapGenerator(this)
         this.gen.SpawnObstical();
-        
+        this.numObsticals = 1;
         // spawning new obsticals at an interval
         this.time.addEvent( {
             delay: 2000, // time in ms
             loop: true,
             callback: () => {
-                this.gen.SpawnObstical();
+                if (this.numObsticals < 40) { // hack balancing :/
+                    this.numObsticals++;
+                    this.gen.SpawnObstical();
+                }
             },
             callbackScope: this
         })
@@ -54,10 +78,14 @@ class Play extends Phaser.Scene {
         this.physics.add.collider(this.player, this.floor.body);
         this.physics.add.collider(this.player, this.deathwall, () => this.GameOver());
         this.physics.add.collider(this.player, this.gen.allHazards, () => this.PlayerHit());
-
+        
         // adding score timer
+        let scoreConfig = {
+            fontFamily: 'Comic Sans',
+            fontSize: "32px",
+        }
         this.score = 0;
-        this.scoreText = this.add.text(0, 0, "Score: " + this.score);
+        this.scoreText = this.add.text(0, 0, "Score: " + this.score, scoreConfig);
 
         // score timer
         this.time.addEvent( {
@@ -72,7 +100,6 @@ class Play extends Phaser.Scene {
 
         // keys (many of these is redundant)
         keyJump = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-        keyRoll = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
         keyRestart = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
         keyUp = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         keyDown = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -85,20 +112,18 @@ class Play extends Phaser.Scene {
         //     this.scene.start('gameoverScene');
         // }
 
-
-
         this.player.update();
         this.gen.allHazards.getChildren().forEach((obstical) => obstical.update()); // wasnt working immediately when i put in MapGenerator update()...
         this.gen.update();
     }
 
     PlayerHit() {
-        console.log("player hit!");
-        // SOUND
+        this.player.notJumped = true;
+        this.impact.play();
     }
 
     GameOver() {
         console.log("game over");
-        this.scene.start('gameoverScene');
+        this.scene.start('gameoverScene', {score: this.score});
     }
 }
